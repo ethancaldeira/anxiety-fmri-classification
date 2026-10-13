@@ -1,0 +1,27 @@
+# Conda environment for src/generate_sp_masks.py (stochastic parcellations).
+# graph-tool is distributed through conda-forge, so this environment is kept
+# separate from the TensorFlow environment in requirements.txt. Versions are
+# those used to generate src/templates/atlases/SP_v2_*.nii.gz.
+#
+#   conda env create -f environment-pds.yml
+#   conda activate pds
+#
+# Then install pds (Markus D. Schirmer, MIT licence) from source,
+# https://github.com/mdschirmer/poisson_disk_sampling, at the commit used:
+#
+#   git clone https://github.com/mdschirmer/poisson_disk_sampling.git
+#   git -C poisson_disk_sampling checkout b4f8c851e471f97db03557218364eaf47e64db55
+#   # nibabel 5 accessors: get_data() -> get_fdata(), get_header()/get_affine() -> .header/.affine
+#   sed -i 's/\.get_data()/.get_fdata()/g; s/\.get_header()/.header/g; s/\.get_affine()/.affine/g' \
+#       poisson_disk_sampling/pds/pds.py poisson_disk_sampling/pds/misc/misc.py
+#   pip install ./poisson_disk_sampling
+name: pds
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10.17
+  - graph-tool=2.97
+  - numpy=2.2.5
+  - scipy=1.15.2
+  - nibabel=5.3.2
+  - pip

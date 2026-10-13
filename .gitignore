@@ -1,0 +1,76 @@
+# ── Logs ─────────────────────────────────────────────────────
+*.log
+*.log.*
+logs/
+
+# ── Results and local documents ──────────────────────────────
+results/
+docs/
+
+# ── Data: only the ABIDE subject list and shared split are tracked ─
+# data/subjects.txt and data/gsp_split.json are generated locally by
+# scripts/make_gsp_inputs.py from the GSP phenotype table.
+data/*
+!data/abide/
+data/abide/*
+!data/abide/subjects_ABIDEI.txt
+!data/abide/abide_split_seed42.json
+
+# ── Subject / participant / phenotype files ──────────────────
+subjects.txt
+participant_list*.txt
+*participants*
+*.csv
+*.tsv
+
+# ── NIfTI / brain imaging data (binary, large, potentially sensitive) ─
+*.nii
+*.nii.gz
+*.mgz
+*.mgh
+
+# Allow atlas parcellations and masks (small, non-sensitive reference files)
+!src/templates/atlases/*.nii.gz
+!src/templates/masks/*.nii.gz
+
+# ── Arrays, model weights, pickles ───────────────────────────
+*.npy
+*.npz
+*.h5
+*.keras
+*.pkl
+
+# ── Python ───────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+.eggs/
+*.egg-info/
+dist/
+build/
+.ipynb_checkpoints/
+
+# ── Environments ─────────────────────────────────────────────
+.env
+.venv/
+venv/
+env/
+
+# ── AWS credentials (never commit) ───────────────────────────
+*.pem
+*credentials*
+aws_creds*
+
+# ── Crash reports ────────────────────────────────────────────
+crash-*.txt
+
+# ── OS / editor noise ────────────────────────────────────────
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Modified copy of INDI-Tools indi_aws/fetch_creds.py (no upstream licence);
+# created locally for the Batch image build, see preprocessing/README.md
+preprocessing/indi_aws_fetch_creds_patched.py

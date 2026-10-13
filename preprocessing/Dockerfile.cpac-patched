@@ -1,0 +1,14 @@
+# C-PAC 1.8.7 release image (tag release-v1.8.7, pinned by digest; C-PAC
+# writes its version as 1.8.7.dev1 into its config and output headers).
+FROM fcpindi/c-pac:release-v1.8.7@sha256:590200a9f6b87e4c67a7b19627f332d54fab94a54c0fc5ed709d6fa31017569f
+
+# Patch 1 — run.py without the c['awsCredentialsFile'] assignment.
+# That key is not part of the C-PAC 1.8.7 pipeline-config schema, which
+# rejects it at validation, before any preprocessing begins.
+COPY cpac_run_patched.py /code/run.py
+
+# Patch 2 — indi_aws fetch_creds.py: when no credentials file is supplied,
+# use boto3's default credential chain (picks up the ECS/Batch IAM job role)
+# instead of forcing anonymous (unsigned) S3 access.
+COPY indi_aws_fetch_creds_patched.py \
+     /usr/share/fsl/6.0/lib/python3.10/site-packages/indi_aws/fetch_creds.py
